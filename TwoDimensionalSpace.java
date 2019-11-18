@@ -8,12 +8,10 @@ class Position
 	int row;
 	int column;
 	char value;
-	String wall;
-	public Position(int row, int column, char value, String wall) {
+	public Position(int row, int column, char value) {
 		this.row = row;
 		this.column = column;
 		this.value = value;
-		this.wall = wall;
 	}
 	
 	
@@ -22,12 +20,14 @@ class Position
 public class TwoDimensionalSpace {
 	int rowCount;
 	int columnCount;
+	String wall;
 	
 	char[][] area;
 
-	public TwoDimensionalSpace(int rowCount, int columnCount) {
+	public TwoDimensionalSpace(int rowCount, int columnCount, String wall) {
 		this.rowCount = rowCount;
 		this.columnCount = columnCount;
+		this.wall = wall;
 		area = new char[rowCount][columnCount];
 	}
 	
@@ -39,6 +39,52 @@ public class TwoDimensionalSpace {
 	public List<Position> getAdjacent(Position p)
 	{
 		List<Position> adjacent = new LinkedList<>();
+		int row = p.row;
+		int column = p.column-1;
+				
+		if(row>=0 && row < rowCount && column >=0 && column < columnCount)
+		{
+			if(!wall.contains(""+area[row][column] ))
+			{
+				Position n = new Position(row, column, area[row][column]);
+				adjacent.add(n);
+			}
+		}
+
+		column = p.column+1;
+		
+		if(row>=0 && row < rowCount && column >=0 && column < columnCount)
+		{
+			if(!wall.contains(""+area[row][column] ))
+			{
+				Position n = new Position(row, column, area[row][column]);
+				adjacent.add(n);
+			}
+		}
+		
+		column = p.column;
+		row = p.row -1;
+		
+		if(row>=0 && row < rowCount && column >=0 && column < columnCount)
+		{
+			if(!wall.contains(""+area[row][column] ))
+			{
+				Position n = new Position(row, column, area[row][column]);
+				adjacent.add(n);
+			}
+		}
+
+		column = p.column;
+		row = p.row +1;
+		
+		if(row>=0 && row < rowCount && column >=0 && column < columnCount)
+		{
+			if(!wall.contains(""+area[row][column] ))
+			{
+				Position n = new Position(row, column, area[row][column]);
+				adjacent.add(n);
+			}
+		}
 		
 		return adjacent;
 	}
